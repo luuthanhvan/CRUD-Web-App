@@ -29,19 +29,19 @@
                 echo "<div id='content'>";
                     echo "<table border='1'>";
                     echo "<tr> 
-                        <th> STT </th>
+                        <th> Mã loại bệnh </th>
                         <th> Tên loại bệnh </th>
                         <th> Tên triệu chứng </th>
                         <th> Mô tả </th>
                         <th> Sửa </th>
                         <th> Xóa </th>
                     </tr>";
-                    $count=0; // đếm số thứ tự
+                    
                     // lấy từng dòng trong CSDL
                     while(($row = $result->fetch_assoc()) !== null){
                         // echo $row['tenloaibenh'] . " " . $row['tentrieuchung'] . " " . $row['mota'] . "<br/>";
                         echo "<tr> 
-                            <td>".++$count."</td>
+                            <td>".$row['mabenh']."</td>
                             <td>".$row['tenloaibenh']."</td>
                             <td>".$row['trieuchung']."</td>
                             <td>".$row['mota']."</td>

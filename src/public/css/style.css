@@ -5,7 +5,7 @@
 
 html, body {
 	height: 100%;
-	background-image: url("../public/images/BG1.jpg");
+	background-image: url("../images/BG1.jpg");
 	background-attachment: fixed;
 	background-size: 100% 100%;
 }

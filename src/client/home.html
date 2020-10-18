@@ -14,12 +14,21 @@
                          <h1>Bách khoa y tế</h1>
                     </div>
                     <div id="search">
-                         <form action="#" method="POST">
-                              <input type="search" id="input-search" placeholder="Nhập bệnh cần tìm kiếm">
+                         <form name="form-search" action="../server/result.php" method="GET"" onsubmit="return validateForm()">
+                              <input name="DSTrieuchung" type="search" id="input-search" 
+                                   placeholder="Nhập triệu chứng, ví dụ: ho, sổ mũi, nhức đầu"
+                                   onchange="search(this.value);" onfocus="this.onchange();"
+                                   onpaste="this.onchange();" oninput="this.onchange();">     
                               <input id="btn-search" type="submit" value="Tìm kiếm">
                          </form>
                     </div>
+                    <div><p id="showContent"></p></div>
                </div>
+               <!-- các thẻ p trống, mục đích là để dùng JS điền tự động các thông báo lỗi từ việc người dùng nhập vào form-->
+               <p id="emptyError"></p>
           </div>
      </body>
+
+     <!-- add JS code -->
+     <script src="index.js"></script>
 </html>   
