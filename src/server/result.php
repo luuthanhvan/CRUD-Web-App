@@ -13,23 +13,27 @@
                <input type="submit" value="Tìm kiếm"/>
             </form>
         </div>
-        <?php 
+        <?php
+            // lấy dữ liệu từ form 
             $str = $_GET['DSTrieuchung'];
-            // echo $str;
 
+            // thực hiện kết nối đến CSDL
             require 'connect.php';
 
+            // viết câu truy vấn
             $sql = "SELECT tenloaibenh, GROUP_CONCAT(tentrieuchung SEPARATOR', ') AS 'trieuchung', mota 
                     FROM benh, chitietbenh, trieuchung 
                     WHERE benh.maloaibenh=chitietbenh.maloaibenh 
                     AND chitietbenh.matrieuchung=trieuchung.matrieuchung 
                     GROUP BY tenloaibenh;";
 
+            // thực thi câu truy vấn
             $result = $connection->query($sql);
             $max = 0;
             $tenbenh = "";
             $mota = "";
 
+            // chọn ra bệnh có % khớp các triệu chứng với các triệu chứng của người dùng nhập vào
             while(($row = $result->fetch_assoc()) !== null){
                 // echo $row['trieuchung'];
                 $percent = compareStrings($str, $row['trieuchung']);
@@ -40,18 +44,18 @@
                 }
             }
             
+            // hàm kiểm tra 2 chuỗi, trả về % độ khớp giữa 2 chuỗi
             function compareStrings($s1, $s2) {
-                //one is empty, so no result
+                // nếu chuỗi rỗng thì return 0
                 if (strlen($s1)==0 || strlen($s2)==0) {
                     return 0;
                 }
             
-                //replace none alphanumeric charactors
-                //i left - in case its used to combine words
+                // thay thế các ký tự không phải chữ và số
                 $s1clean = preg_replace("/[^A-Za-z0-9-]/", ' ', $s1);
                 $s2clean = preg_replace("/[^A-Za-z0-9-]/", ' ', $s2);
             
-                //remove double spaces
+                // loại bỏ các double space
                 while (strpos($s1clean, "  ")!==false) {
                     $s1clean = str_replace("  ", " ", $s1clean);
                 }
@@ -59,27 +63,26 @@
                     $s2clean = str_replace("  ", " ", $s2clean);
                 }
             
-                //create arrays
+                // tách các chuỗi ra thành các sub-string sau đó lưu vào mảng
                 $ar1 = explode(" ",$s1clean);
                 $ar2 = explode(" ",$s2clean);
                 $l1 = count($ar1);
                 $l2 = count($ar2);
             
-                //flip the arrays if needed so ar1 is always largest.
+                // hoán đổi 2 mảng để mảng 1 có số phần tử luôn hớn hơn mảng 2.
                 if ($l2>$l1) {
                     $t = $ar2;
                     $ar2 = $ar1;
                     $ar1 = $t;
                 }
             
-                //flip array 2, to make the words the keys
+                // lật mảng 2, để biến các từ (value) thành các key
                 $ar2 = array_flip($ar2);
-            
-            
+                
                 $maxwords = max($l1, $l2);
                 $matches = 0;
             
-                //find matching words
+                // tìm các từ khớp nhau
                 foreach($ar1 as $word) {
                     if (array_key_exists($word, $ar2))
                         $matches++;
@@ -87,7 +90,8 @@
             
                 return ($matches / $maxwords) * 100;    
             }
-
+            
+            // hiển thị thông tin tìm kiểm
             echo "<table>";
                 echo "<tr>";
                     echo "<th>Chẩn đoán:</th>";

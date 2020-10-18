@@ -1,68 +1,66 @@
-<?php
-    // lấy mã bệnh từ bên trang admin.php truyền qua
-    $maBenh = $_GET['maBenh'];
-    // echo $maBenh;
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--bootstrap-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="../public/css/admin.css">
+        <title>Sửa thông tin bệnh</title>
+    </head>
+    <body>
+        <?php
+            // lấy mã bệnh từ bên trang admin.php truyền qua
+            $maBenh = $_GET['maBenh'];
+            // echo $maBenh;
 
-    // thực hiện kết nối đến CSDL
-    require 'connect.php';
+            // thực hiện kết nối đến CSDL
+            require 'connect.php';
 
-    // viết câu truy vấn lấy dữ liệu từ bảng benh
-    $sql = "SELECT * FROM benh";
+            // viết câu truy vấn lấy dữ liệu từ bảng benh
+            $sql = "SELECT * FROM benh";
 
-    // thực thi câu truy vấn
-    $result = $connection->query($sql);
+            // thực thi câu truy vấn
+            $result = $connection->query($sql);
 
-    // lấy 1 dòng từ kết quả truy vấn trả về
-    $row = $result->fetch_assoc();
+            // lấy 1 dòng từ kết quả truy vấn trả về
+            $row = $result->fetch_assoc();
 
-    $mabenh = $row['maloaibenh'];
-    $tenbenh = $row['tenloaibenh'];
-    $mota = $row['mota'];
+            $mabenh = $row['maloaibenh'];
+            $tenbenh = $row['tenloaibenh'];
+            $mota = $row['mota'];
 
-    // xuất ngược các dữ liệu trong CSDL vào form
-    echo "<div id='container'>";
-        echo "<div id='header'>";
-            echo "<h1> Sửa sản phẩm </h1>";
-        echo "</div>"; // end div header
-
-        echo "<div id='content'>";
-            echo "<table>";
+            // xuất ngược các dữ liệu trong CSDL vào form
+            echo "<div class='container'>";
+                echo "<h3 class='title'> Sửa thông tin bệnh </h3>";
                 echo "<form action='handleModify.php' method='GET'";
-                    echo "<tr>";
-                        echo "<td><input type='hidden' name='mabenh' value='$mabenh'></td>";
-                    echo "</tr>";
-
-                    echo "<tr>";
-                        echo "<td><label>Tên bệnh</label></td>";
-                        echo"<td><input type='text' name='tenbenh' value='$tenbenh'></td>";
-                    echo "</tr>";
-                    
-                    echo "<tr> ";
-                        echo "<td><label>Mô tả</label></td>";
-                        echo "<td> <textarea rows='15' cols='60' name='mota'>".$mota."</textarea></td>";
-                    echo "</tr>";
-                    
-                    echo "<tr>";
-                        echo "<td><label>Triệu chứng<label></td>";
-                        echo "<td>";
-                            echo "<select name='trieuchung[]' multiple>";
-                                $sql = "SELECT * FROM trieuchung";
-                                $result = $connection->query($sql);
-                                while(($row = $result->fetch_assoc()) !== null){
-                                    echo"<option value='".$row['matrieuchung']."'>".$row['tentrieuchung']."</option>";
-                                }
-                            echo "</select>";
-                        echo "</td>";
-                    echo "</tr>";
-
-                    echo "<tr> ";
-                        echo"<td><input type='submit' value='Sửa'></td>";
-                    echo "</tr>";
+                    echo "<input type='hidden' name='mabenh' value='$mabenh'>";
+                    echo "<div class='form-row'>";
+                        echo "<div class='form-group col-md-6'>";
+                            echo "<label>Tên bệnh</label>";
+                            echo "<input class='form-control' type='text' name='tenbenh' value='$tenbenh'>";
+                        echo "</div>";
+                    echo "</div>";
+                    echo "<div class='form-group'>";
+                        echo "<label>Mô tả</label>";
+                        echo "<textarea name='mota' class='form-control' rows='3'>".$mota."</textarea>";
+                    echo "</div>";
+                    echo "<select name='trieuchung[]' class='custom-select' multiple>";
+                        echo "<option selected>Chọn triệu chứng</option>";
+                        $sql = "SELECT * FROM trieuchung";
+                        $result = $connection->query($sql);
+                        while(($row = $result->fetch_assoc()) !== null){
+                            echo"<option value='".$row['matrieuchung']."'>".$row['tentrieuchung']."</option>";
+                        }
+                    echo "</select>";
+                    echo"<td><input id='btn-sua' type='submit' value='Sửa'></td>";
                 echo "</form>";
-            echo "</table>";
-        echo "</div>"; // end div content
-    echo "</div>"; // end div container
+            echo "</div>"; // end div container
 
-    // đóng kết nối CSDL
-    $connection->close();
-?>
+            // đóng kết nối CSDL
+            $connection->close();
+        ?>
+    </body>
+</html>

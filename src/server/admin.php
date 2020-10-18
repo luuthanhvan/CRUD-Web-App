@@ -7,6 +7,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--bootstrap-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="../public/css/admin.css">
         <title>Admin</title>
     </head>
     <body>
@@ -21,77 +26,74 @@
             // thực thi câu truy vấn
             $result = $connection->query($sql);
 
-            echo "<div id='container'>";
-                echo "<div id='header'>";
-                    echo "<h3> Thông tin bệnh </h3>";
-                echo "</div>"; // end div header
-                
-                echo "<div id='content'>";
-                    echo "<table border='1'>";
-                    echo "<tr> 
-                        <th> Mã loại bệnh </th>
-                        <th> Tên loại bệnh </th>
-                        <th> Tên triệu chứng </th>
-                        <th> Mô tả </th>
-                        <th> Sửa </th>
-                        <th> Xóa </th>
-                    </tr>";
-                    
-                    // lấy từng dòng trong CSDL
-                    while(($row = $result->fetch_assoc()) !== null){
-                        // echo $row['tenloaibenh'] . " " . $row['tentrieuchung'] . " " . $row['mota'] . "<br/>";
-                        echo "<tr> 
-                            <td>".$row['mabenh']."</td>
-                            <td>".$row['tenloaibenh']."</td>
-                            <td>".$row['trieuchung']."</td>
-                            <td>".$row['mota']."</td>
-                            <td>
-                                <a href='modify.php?maBenh=".$row['mabenh']."'><img src='../public/icons/edit.png' width='20px' height='20px'/></a>
-                            </td>
-                            <td>
-                                <a href='delete.php?maBenh=".$row['mabenh']."'><img src='../public/icons/delete.png' width='20px' height='20px'/></a>
-                            </td>
-                        </tr>";
-                    }
-                    echo "</table>";
-                echo "</div>"; // end div content
+            // hiển thị thông tin
+            echo "<div class='container'>";
+                echo "<h2 class='title'>Thông tin bệnh</h2>";
+                echo "<table class='table table-striped'>";
+                    echo "<thead>";
+                        echo "<tr>
+                                <th scope='col'>Mã bệnh</th>
+                                <th scope='col'>Tên bệnh</th>
+                                <th scope='col'>Triệu chứng</th>
+                                <th scope='col'>Mô tả</th>
+                                <th scope='col'>Sửa</th>
+                                <th scope='col'>Xóa</th>
+                            </tr>";
+                    echo "</thead>";
+                    echo "<tbody>";
+                        // lấy từng dòng trong CSDL
+                        while(($row = $result->fetch_assoc()) !== null){
+                            // echo $row['tenloaibenh'] . " " . $row['tentrieuchung'] . " " . $row['mota'] . "<br/>";
+                            echo "<tr> 
+                                <th scope='row'>".$row['mabenh']."</th>
+                                <td>".$row['tenloaibenh']."</td>
+                                <td>".$row['trieuchung']."</td>
+                                <td>".$row['mota']."</td>
+                                <td>
+                                    <a href='modify.php?maBenh=".$row['mabenh']."'><img src='../public/icons/edit.png' width='20px' height='20px'/></a>
+                                </td>
+                                <td>
+                                    <a href='delete.php?maBenh=".$row['mabenh']."'><img src='../public/icons/delete.png' width='20px' height='20px'/></a>
+                                </td>
+                            </tr>";
+                        }
+                    echo "</tbody>";
+                echo "</table>";
             echo "</div>"; // end div container
         ?>
-
-        <button type="button" onclick="show()">Thêm mới bệnh</button>
-        <div class="form-nhap">
-        <form action="add.php" method="GET">
-            <table>
-                <tr>
-                    <td><label>Mã bệnh<label></td>
-                    <td><input type="text" name="mabenh"/></td>
-                </tr>
-                <tr>
-                    <td><label>Tên bệnh<label></td>
-                    <td><input type="text" name="tenbenh"/></td>
-                </tr>
-                <tr>
-                    <td><label>Mô tả<label></td>
-                    <td><textarea name="mota" rows="15" cols="60"></textarea></td>
-                </tr>
-                <tr>
-                    <td><label>Triệu chứng<label></td>
-                    <td>
-                        <select name="trieuchung[]" multiple>
-                            <?php
-                                $sql = "SELECT * FROM trieuchung";
-                                $result = $connection->query($sql);
-                                while(($row = $result->fetch_assoc()) !== null){
-                                    echo"<option value='".$row['matrieuchung']."'>".$row['tentrieuchung']."</option>";
-                                }
-                            ?>
-                        </select>
-                    </td>
-                </tr>
-                <tr><td><input type="submit" value="Thêm"/></td></tr>
-            </table>
-        </form>
-        </div>
+        <!-- tạo form nhập bệnh -->
+        <div class='container'>
+            <button id="btn-them" type="button" class="btn btn-info" onclick="show()">Thêm mới bệnh</button>
+            <div class="form-nhap">
+                <form name="form-nhap" action="add.php" method="GET" onsubmit="return validateForm()">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <input class="form-control" type="text" name="mabenh" placeholder="Nhập mã bệnh">
+                            <p id="error1"></p>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input class="form-control" type="text" name="tenbenh" placeholder="Nhập tên bệnh">
+                            <p id="error2"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Mô tả</label>
+                        <textarea name="mota" class="form-control" rows="3"></textarea>
+                    </div>
+                    <select name="trieuchung[]" class="custom-select" multiple>
+                        <option selected>Chọn triệu chứng</option>
+                        <?php
+                            $sql = "SELECT * FROM trieuchung";
+                            $result = $connection->query($sql);
+                            while(($row = $result->fetch_assoc()) !== null){
+                                echo"<option value='".$row['matrieuchung']."'>".$row['tentrieuchung']."</option>";
+                            }
+                        ?>
+                    </select>
+                    <input id="btn-submit" type="submit" value="Thêm"/>
+                </form>
+            </div>
+        </div> <!-- end div container -->
     </body>
     <!-- add JS code -->
     <script src="./index.js"></script>

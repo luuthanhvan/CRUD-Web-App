@@ -73,3 +73,10 @@ html, body {
 	-o-transition: all .55s ease;
 	transition: all .55s ease;
 }
+
+#emptyError{
+	color: red;
+	font-style: italic;
+	margin-top: 10px;
+	font-size: 18px;
+}
