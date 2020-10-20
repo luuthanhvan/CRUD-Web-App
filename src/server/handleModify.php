@@ -1,8 +1,12 @@
 <?php
     // lấy dữ liệu từ form
-    $mabenh = $_GET['mabenh'];
-    $benh = $_GET['tenbenh'];
-    $mota = $_GET['mota'];
+    $mabenh = $_POST['mb'];
+    // echo $mabenh."<br>";
+    $benh = $_POST['tb'];
+    // echo $benh."<br>";
+    $mota = $_POST['mt'];
+    // echo $mota."<br>";
+    $trieuchung = $_POST['tc'];
     
     // thực hiện kết nối đến CSDL
     require 'connect.php';
@@ -12,11 +16,15 @@
 
     // thực thi câu truy vấn
     $connection->query($sql);
-    
+
+    // xóa toàn bộ triệu chứng trong bảng chitietbenh
+    $sql = "DELETE FROM chitietbenh WHERE maloaibenh='$mabenh'";
+    $connection->query($sql);
+
     // lấy các mã triệu chứng từ thẻ select để update dữ liệu vào bảng chitietbenh
-    foreach($_GET['trieuchung'] as $value){
+    foreach($trieuchung as $value){
         // echo $value."<br/>";
-        $sql = "UPDATE chitietbenh SET matrieuchung='$value' WHERE maloaibenh='$mabenh'";
+        $sql = "INSERT INTO chitietbenh (maloaibenh, matrieuchung) VALUES ('$mabenh', '$value')";
         $connection->query($sql);
     }
 

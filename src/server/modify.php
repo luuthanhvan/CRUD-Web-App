@@ -20,8 +20,8 @@
             require 'connect.php';
 
             // viết câu truy vấn lấy dữ liệu từ bảng benh
-            $sql = "SELECT * FROM benh";
-
+            $sql = "SELECT * FROM benh WHERE maloaibenh='$maBenh'";
+            // echo $sql;
             // thực thi câu truy vấn
             $result = $connection->query($sql);
 
@@ -30,24 +30,27 @@
 
             $mabenh = $row['maloaibenh'];
             $tenbenh = $row['tenloaibenh'];
+            // echo $tenbenh;
             $mota = $row['mota'];
 
             // xuất ngược các dữ liệu trong CSDL vào form
             echo "<div class='container'>";
                 echo "<h3 class='title'> Sửa thông tin bệnh </h3>";
-                echo "<form action='handleModify.php' method='GET'";
-                    echo "<input type='hidden' name='mabenh' value='$mabenh'>";
+                echo "<form action='handleModify.php' method='POST'>";
+                    echo "<input type='hidden' name='mb' value=".$mabenh.">";
+
                     echo "<div class='form-row'>";
                         echo "<div class='form-group col-md-6'>";
                             echo "<label>Tên bệnh</label>";
-                            echo "<input class='form-control' type='text' name='tenbenh' value='$tenbenh'>";
+                            echo "<input class='form-control' type='text' name='tb' value='$tenbenh'>";
                         echo "</div>";
                     echo "</div>";
+                    
                     echo "<div class='form-group'>";
                         echo "<label>Mô tả</label>";
-                        echo "<textarea name='mota' class='form-control' rows='3'>".$mota."</textarea>";
+                        echo "<textarea name='mt' class='form-control' rows='3' value='$mota'>".$mota."</textarea>";
                     echo "</div>";
-                    echo "<select name='trieuchung[]' class='custom-select' multiple>";
+                    echo "<select name='tc[]' class='custom-select' multiple>";
                         echo "<option selected>Chọn triệu chứng</option>";
                         $sql = "SELECT * FROM trieuchung";
                         $result = $connection->query($sql);
@@ -55,7 +58,7 @@
                             echo"<option value='".$row['matrieuchung']."'>".$row['tentrieuchung']."</option>";
                         }
                     echo "</select>";
-                    echo"<td><input id='btn-sua' type='submit' value='Sửa'></td>";
+                    echo"<td><input id='btn-sua' type='submit' value='Sửa'/></td>";
                 echo "</form>";
             echo "</div>"; // end div container
 
