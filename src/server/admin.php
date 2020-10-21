@@ -81,14 +81,15 @@
                         <textarea name="mota" class="form-control" rows="3"></textarea>
                     </div>
                     <select name="trieuchung[]" class="custom-select" multiple>
-                        <option selected>Chọn triệu chứng</option>
-                        <?php
-                            $sql = "SELECT * FROM trieuchung";
-                            $result = $connection->query($sql);
-                            while(($row = $result->fetch_assoc()) !== null){
-                                echo"<option value='".$row['matrieuchung']."'>".$row['tentrieuchung']."</option>";
-                            }
-                        ?>
+                        <optgroup label='Chọn triệu chứng'>
+                            <?php
+                                $sql = "SELECT * FROM trieuchung";
+                                $result = $connection->query($sql);
+                                while(($row = $result->fetch_assoc()) !== null){
+                                    echo"<option value='".$row['matrieuchung']."'>".$row['tentrieuchung']."</option>";
+                                }
+                            ?>
+                        </optgroup>
                     </select>
                     <input id="btn-submit" type="submit" value="Thêm"/>
                 </form>

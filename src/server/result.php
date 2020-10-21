@@ -3,15 +3,34 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--Bootstrap-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <link rel="stylesheet" href="../public/css/admin.css"/>
         <title>Kết quả tìm kiếm</title>
     </head>
     <body>
-        <div>
-            <form action="result.php" method="GET">
-               <label>Bách khoa y tế</label>
-               <input type="search" name="DSTrieuchung"/>
-               <input type="submit" value="Tìm kiếm"/>
-            </form>
+        <div id="container-result">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a id="title" class="navbar-brand" href="../client/home.html">Bách khoa y tế</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <form name="form-search" action="result.php" method="GET" class="form-inline my-2 my-lg-0" onsubmit="return validateForm()">
+                        <input name="DSTrieuchung" id="input-search" class="form-control rounded-pill" type="search" 
+                            placeholder="Nhập triệu chứng, ví dụ: ho, sổ mũi, nhức đầu"
+                            onchange="search(this.value);" onfocus="this.onchange();"
+                            onpaste="this.onchange();" oninput="this.onchange();"/>
+                        <input class="btn btn-outline-info rounded-pill border-light" type="submit" value="Tìm kiếm"/>
+                    </form>
+                </div>
+            </nav>
+            <div>
+            <!-- các thẻ p trống, mục đích là để dùng JS điền tự động các thông báo lỗi từ việc người dùng nhập vào form-->
+                <div><p class="text-center" id="showContent"></p></div>
+                <div><p class="text-center" id="emptyError"></p></div>
+            </div>
         </div>
         <?php
             // lấy dữ liệu từ form 
@@ -92,21 +111,22 @@
             }
             
             // hiển thị thông tin tìm kiểm
-            echo "<table>";
-                echo "<tr>";
-                    echo "<th>Chẩn đoán:</th>";
-                    echo "<td>".$tenbenh."</td>";
-                echo "</tr>";
-
-
-                echo "<tr>";
-                    echo "<th>Lời khuyên:</th>";
-                    echo "<td>".$mota."</td>";
-                echo "</tr>";
-            echo "</table>";
+            echo "<div class='container'>";
+                echo "<table id='result' class='table table-borderless'>";
+                    echo "<tr>";
+                        echo "<th scope='row'>Chẩn đoán:</th>";
+                        echo "<td>".$tenbenh."</td>";
+                    echo "</tr>";
+                    echo "<tr>";
+                        echo "<th scope='row'>Lời khuyên:</th>";
+                        echo "<td>".$mota."</td>";
+                    echo "</tr>";
+                echo "</table>";
+            echo "</div>";
 
             // đóng kết nối CSDL
             $connection->close();
         ?>
     </body>
+    <script src="../client/index.js"></script>
 </html>

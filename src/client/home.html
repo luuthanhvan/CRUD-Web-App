@@ -1,30 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" class="h-100">
      <head>
      	<title>Trang chủ</title>
      	<meta charset="utf-8">
           <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
           <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
-          <link rel="stylesheet" type="text/css" href="../public/css/style.css">
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+          <link rel="stylesheet" href="../public/css/style.css">
      </head>
-     <body>
-          <div id="wrap">
-               <div id="content">
-                    <div id="title"> 
-                         <h1>Bách khoa y tế</h1>
-                    </div>
-                    <div id="search">
-                         <form name="form-search" action="../server/result.php" method="GET"" onsubmit="return validateForm()">
-                              <input name="DSTrieuchung" type="search" id="input-search" 
+     <body class="h-100">
+          <div class="container h-100">
+               <div class="row h-100 justify-content-center align-items-center">
+                    <div class="col-14 col-md-12 col-lg-10">
+                         <!-- Form -->
+                         <form name="form-search" action="../server/result.php" method="GET" onsubmit="return validateForm()">
+                              <div class="text-center">
+                                   <h1 class="display-4">Bách khoa y tế</h1>
+                              </div>
+                              <!-- Input fields -->
+                              <div class="input-group mb-3">
+                                   <input name="DSTrieuchung" type="search" id="input-search" class="form-control form-control-lg rounded-pill"
                                    placeholder="Nhập triệu chứng, ví dụ: ho, sổ mũi, nhức đầu"
                                    onchange="search(this.value);" onfocus="this.onchange();"
                                    onpaste="this.onchange();" oninput="this.onchange();">     
-                              <input id="btn-search" type="submit" value="Tìm kiếm">
+                                   <div>
+                                        <input id="btn-search" class="btn btn-lg btn-dark rounded-pill border-white" type="submit" value="Tìm kiếm">
+                                   </div>
+                              </div>
+                              <!-- End input fields -->
                          </form>
+                         <!-- Form end -->
+                         <!-- các thẻ p trống, mục đích là để dùng JS điền tự động các thông báo lỗi từ việc người dùng nhập vào form-->
+                         <div><p class="text-center" id="showContent"></p></div>
+                         <div><p class="text-center" id="emptyError"></p></div>
                     </div>
-                    <!-- các thẻ p trống, mục đích là để dùng JS điền tự động các thông báo lỗi từ việc người dùng nhập vào form-->
-                    <div><p id="showContent"></p></div>
-                    <div><p id="emptyError"></p></div>
                </div>
           </div>
      </body>

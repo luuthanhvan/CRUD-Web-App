@@ -14,7 +14,7 @@
     // nếu có dữ liệu
     if($result->num_rows > 0){
         while($row = $result->fetch_assoc()){
-            echo $row['tentrieuchung']; // trả dữ liệu lấy được về client
+            echo $row['tentrieuchung']."</br>"; // trả dữ liệu lấy được về client
         }
     } // ngược lại trả về chuỗi rỗng
     else{

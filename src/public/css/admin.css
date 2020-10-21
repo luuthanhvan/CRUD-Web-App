@@ -22,3 +22,23 @@
     color: red;
     font-style: italic;
 }
+
+#input-search{
+    width: 900px;
+}
+
+#container-result, #result{
+    margin-top: 20px;
+}
+
+#title{
+    text-transform: uppercase;
+	color: #488686;
+	text-shadow: 1px 1px 2px #0066CC;
+}
+
+#emptyError{
+	color: red;
+	font-style: italic;
+	font-size: 18px;
+}

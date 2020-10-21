@@ -50,13 +50,14 @@
                         echo "<label>Mô tả</label>";
                         echo "<textarea name='mt' class='form-control' rows='3' value='$mota'>".$mota."</textarea>";
                     echo "</div>";
-                    echo "<select name='tc[]' class='custom-select' multiple>";
-                        echo "<option selected>Chọn triệu chứng</option>";
-                        $sql = "SELECT * FROM trieuchung";
-                        $result = $connection->query($sql);
-                        while(($row = $result->fetch_assoc()) !== null){
-                            echo"<option value='".$row['matrieuchung']."'>".$row['tentrieuchung']."</option>";
-                        }
+                    echo "<select name='tc[]' class='custom-select' multiple required>";
+                        echo "<optgroup label='Chọn triệu chứng'>";
+                            $sql = "SELECT * FROM trieuchung";
+                            $result = $connection->query($sql);
+                            while(($row = $result->fetch_assoc()) !== null){
+                                echo"<option value='".$row['matrieuchung']."'>".$row['tentrieuchung']."</option>";
+                            }
+                        echo "</optgroup>";
                     echo "</select>";
                     echo"<td><input id='btn-sua' type='submit' value='Sửa'/></td>";
                 echo "</form>";
