@@ -63,7 +63,7 @@
         ?>
         <!-- tạo form nhập bệnh -->
         <div class='container'>
-            <button id="btn-them" type="button" class="btn btn-info" onclick="show()">Thêm mới bệnh</button>
+            <button id="btn-them1" type="button" class="btn btn-info" onclick="show()">Thêm mới bệnh</button>
             <div class="form-nhap">
                 <form name="form-nhap" action="add.php" method="GET" onsubmit="return validateForm()">
                     <div class="form-row">
@@ -81,21 +81,23 @@
                         <textarea name="mota" class="form-control" rows="3"></textarea>
                     </div>
                     <label>Chọn triệu chứng</label>
-                    <div class="row">
-                        <?php
-                            $sql = "SELECT * FROM trieuchung";
-                            $result = $connection->query($sql);
-                            while(($row = $result->fetch_assoc()) !== null){
-                                echo "<div class='col-md-2'>
-                                    <div class='form-group'>
-                                        <input type='checkbox' name='trieuchung[]' value='".$row['matrieuchung']."'/>
-                                        <label>".$row['tentrieuchung']."</label>
-                                    </div>
-                                </div>";
-                            }
-                        ?>
+                    <div class="vertical-scrollable">
+                        <div class="row">
+                            <?php
+                                $sql = "SELECT * FROM trieuchung";
+                                $result = $connection->query($sql);
+                                while(($row = $result->fetch_assoc()) !== null){
+                                    echo "<div class='col-sm-8'>
+                                        <div class='form-group'>
+                                            <input type='checkbox' name='trieuchung[]' value='".$row['matrieuchung']."'/>
+                                            <label>".$row['tentrieuchung']."</label>
+                                        </div>
+                                    </div>";
+                                }
+                            ?>
+                        </div>
                     </div>
-                    <input id="btn-submit" type="submit" value="Thêm"/>
+                    <input id="btn-them2" class="btn btn-secondary" type="submit" value="Thêm"/>
                 </form>
             </div>
         </div> <!-- end div container -->

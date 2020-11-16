@@ -3,19 +3,13 @@
     margin-bottom: 20px;
     text-align: center;
 }
-#btn-them{
+
+#btn-them1 {
     margin-bottom: 20px;
 }
 
-#btn-submit, #btn-sua{
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: none;
-    font-size: 18px;
-    padding: 5px;
-    background-color: gray;
-    color: white;
+#btn-them2, #btn-sua, #btn-boqua{
+    margin-top: 30px;
 }
 
 #error1, #error2{
@@ -41,4 +35,10 @@
 	color: red;
 	font-style: italic;
 	font-size: 18px;
+}
+
+.vertical-scrollable> .row {
+    width: 100%;
+    height: 200px;
+	overflow-y: scroll;  
 }

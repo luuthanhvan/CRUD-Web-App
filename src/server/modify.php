@@ -52,22 +52,23 @@
                     echo "</div>";
         
                     echo "<label>Chọn triệu chứng</label>";
-                    echo "<div class='row'>";
-                        $sql = "SELECT * FROM trieuchung";
-                        $result = $connection->query($sql);
-                        while(($row = $result->fetch_assoc()) !== null){
-                            echo "<div class='col-md-2'>
-                                <div class='form-group'>
-                                    <input type='checkbox' name='tc[]' value='".$row['matrieuchung']."'/>
-                                    <label>".$row['tentrieuchung']."</label>
-                                </div>
-                            </div>";
-                        }
+                    echo"<div class='vertical-scrollable'>";
+                        echo "<div class='row'>";
+                            $sql = "SELECT * FROM trieuchung";
+                            $result = $connection->query($sql);
+                            while(($row = $result->fetch_assoc()) !== null){
+                                echo "<div class='col-sm-8'>
+                                    <div class='form-group'>
+                                        <input type='checkbox' name='tc[]' value='".$row['matrieuchung']."'/>
+                                        <label>".$row['tentrieuchung']."</label>
+                                    </div>
+                                </div>";
+                            }
+                        echo "</div>";
                     echo "</div>";
-                    
                     echo "<div class='form-group'>";
-                        echo"<td><input class='btn btn-secondary' type='submit' value='Sửa'/></td>";
-                        echo"<td><button class='btn btn-secondary' type='button' id='btn-boqua'>Bỏ qua</button></td>";
+                        echo"<td><input id='btn-sua' class='btn btn-secondary' type='submit' value='Sửa'/></td>";
+                        echo"<td><button id='btn-boqua' class='btn btn-secondary' type='button'>Bỏ qua</button></td>";
                     echo "</div>";
                 echo "</form>";
             echo "</div>"; // end div container
