@@ -80,17 +80,21 @@
                         <label>Mô tả</label>
                         <textarea name="mota" class="form-control" rows="3"></textarea>
                     </div>
-                    <select name="trieuchung[]" class="custom-select" multiple>
-                        <optgroup label='Chọn triệu chứng'>
-                            <?php
-                                $sql = "SELECT * FROM trieuchung";
-                                $result = $connection->query($sql);
-                                while(($row = $result->fetch_assoc()) !== null){
-                                    echo"<option value='".$row['matrieuchung']."'>".$row['tentrieuchung']."</option>";
-                                }
-                            ?>
-                        </optgroup>
-                    </select>
+                    <label>Chọn triệu chứng</label>
+                    <div class="row">
+                        <?php
+                            $sql = "SELECT * FROM trieuchung";
+                            $result = $connection->query($sql);
+                            while(($row = $result->fetch_assoc()) !== null){
+                                echo "<div class='col-md-2'>
+                                    <div class='form-group'>
+                                        <input type='checkbox' name='trieuchung[]' value='".$row['matrieuchung']."'/>
+                                        <label>".$row['tentrieuchung']."</label>
+                                    </div>
+                                </div>";
+                            }
+                        ?>
+                    </div>
                     <input id="btn-submit" type="submit" value="Thêm"/>
                 </form>
             </div>

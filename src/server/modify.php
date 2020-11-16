@@ -50,21 +50,37 @@
                         echo "<label>Mô tả</label>";
                         echo "<textarea name='mt' class='form-control' rows='3' value='$mota'>".$mota."</textarea>";
                     echo "</div>";
-                    echo "<select name='tc[]' class='custom-select' multiple required>";
-                        echo "<optgroup label='Chọn triệu chứng'>";
-                            $sql = "SELECT * FROM trieuchung";
-                            $result = $connection->query($sql);
-                            while(($row = $result->fetch_assoc()) !== null){
-                                echo"<option value='".$row['matrieuchung']."'>".$row['tentrieuchung']."</option>";
-                            }
-                        echo "</optgroup>";
-                    echo "</select>";
-                    echo"<td><input id='btn-sua' type='submit' value='Sửa'/></td>";
+        
+                    echo "<label>Chọn triệu chứng</label>";
+                    echo "<div class='row'>";
+                        $sql = "SELECT * FROM trieuchung";
+                        $result = $connection->query($sql);
+                        while(($row = $result->fetch_assoc()) !== null){
+                            echo "<div class='col-md-2'>
+                                <div class='form-group'>
+                                    <input type='checkbox' name='tc[]' value='".$row['matrieuchung']."'/>
+                                    <label>".$row['tentrieuchung']."</label>
+                                </div>
+                            </div>";
+                        }
+                    echo "</div>";
+                    
+                    echo "<div class='form-group'>";
+                        echo"<td><input class='btn btn-secondary' type='submit' value='Sửa'/></td>";
+                        echo"<td><button class='btn btn-secondary' type='button' id='btn-boqua'>Bỏ qua</button></td>";
+                    echo "</div>";
                 echo "</form>";
             echo "</div>"; // end div container
 
             // đóng kết nối CSDL
             $connection->close();
         ?>
+
+        <script>
+            // bắt sự kiện onclick vào button Bỏ qua, điều hướng ngược về trang admin
+            document.getElementById("btn-boqua").onclick = function () {
+                location.href = "admin.php";
+            };
+        </script>
     </body>
 </html>

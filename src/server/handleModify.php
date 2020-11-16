@@ -17,17 +17,22 @@
     // thực thi câu truy vấn
     $connection->query($sql);
 
-    // xóa toàn bộ triệu chứng trong bảng chitietbenh
-    $sql = "DELETE FROM chitietbenh WHERE maloaibenh='$mabenh'";
-    $connection->query($sql);
-
-    // lấy các mã triệu chứng từ thẻ select để update dữ liệu vào bảng chitietbenh
-    foreach($trieuchung as $value){
-        // echo $value."<br/>";
-        $sql = "INSERT INTO chitietbenh (maloaibenh, matrieuchung) VALUES ('$mabenh', '$value')";
+    // nếu người dùng có click chọn triệu chứng bệnh (tức là số phần tử trong mảng $trieuchung là khác 0)
+    // thì mới thực hiện việc xóa hết các triệu chứng cũ đi và cập nhật lại danh sách triệu chứng
+    // mục đích là để tránh trường hợp không chọn triệu chứng nào nó cũng vẫn xóa hết
+    if(count($trieuchung) != 0){
+        // xóa toàn bộ triệu chứng trong bảng chitietbenh
+        $sql = "DELETE FROM chitietbenh WHERE maloaibenh='$mabenh'";
         $connection->query($sql);
-    }
 
+        // lấy các mã triệu chứng từ thẻ select để update dữ liệu vào bảng chitietbenh
+        foreach($trieuchung as $value){
+            // echo $value."<br/>";
+            $sql = "INSERT INTO chitietbenh (maloaibenh, matrieuchung) VALUES ('$mabenh', '$value')";
+            $connection->query($sql);
+        }
+    }
+    
     // đóng kết nối CSDL
     $connection->close();
 
