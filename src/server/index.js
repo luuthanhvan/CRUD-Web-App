@@ -10,7 +10,7 @@ function show() {
     for (let i = 0; i < attribute.length; i++) {
         attribute[i].style.display = 'block';
     }
-    document.getElementById("btn-them").style.visibility = "hidden";
+    document.getElementById("btn-them1").style.visibility = "hidden";
 }
 
 // kiểm tra tính hợp lệ của form nhập bệnh

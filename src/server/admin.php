@@ -7,11 +7,15 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!--bootstrap-->
+        <!-- Bootstrap -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
         <link rel="stylesheet" type="text/css" href="../public/css/admin.css">
+
+        <!-- Include Summernote CSS and JS -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
         <title>Admin</title>
     </head>
     <body>
@@ -78,7 +82,7 @@
                     </div>
                     <div class="form-group">
                         <label>Mô tả</label>
-                        <textarea name="mota" class="form-control" rows="3"></textarea>
+                        <textarea id="summernote" name="mota" class="form-control" rows="3"></textarea>
                     </div>
                     <label>Chọn triệu chứng</label>
                     <div class="vertical-scrollable">
@@ -104,6 +108,52 @@
     </body>
     <!-- add JS code -->
     <script src="./index.js"></script>
+    <script>
+        // call default constructor function of summernote
+        // $('#summernote').summernote();
+        $(document).ready(function() {
+            // init summernote with options
+            $('#summernote').summernote({
+                placeholder: 'Nhập chương trình Tour...',
+                tabsize: 2,
+                height: 200,
+                minHeight: 100,
+                maxHeight: 300,
+                focus: true,
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontname', ['fontname']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']],
+                ],
+                popover: {
+                    image: [
+                    ['image', ['resizeFull', 'resizeHalf', 'resizeQuarter', 'resizeNone']],
+                    ['float', ['floatLeft', 'floatRight', 'floatNone']],
+                    ['remove', ['removeMedia']] ],
+                    link: [['link', ['linkDialogShow', 'unlink']]],
+                    table: [
+                        ['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
+                        ['delete', ['deleteRow', 'deleteCol', 'deleteTable']],
+                    ],
+                    air: [
+                        ['color', ['color']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['para', ['ul', 'paragraph']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'picture']]] },
+                codemirror: {
+                    theme: 'monokai'
+                }
+            });
+        });
+    </script>
 </html>
 <?php
     // đóng kết nối CSDL
