@@ -18,14 +18,13 @@
         <?php
             // lấy mã bệnh từ bên trang admin.php truyền qua
             $maBenh = $_GET['maBenh'];
-            // echo $maBenh;
 
             // thực hiện kết nối đến CSDL
             require 'connect.php';
 
             // viết câu truy vấn lấy dữ liệu từ bảng benh
             $sql = "SELECT * FROM benh WHERE maloaibenh='$maBenh'";
-            // echo $sql;
+            
             // thực thi câu truy vấn
             $result = $connection->query($sql);
 
@@ -34,10 +33,9 @@
 
             $mabenh = $row['maloaibenh'];
             $tenbenh = $row['tenloaibenh'];
-            // echo $tenbenh;
             $mota = $row['mota'];
 
-            // xuất ngược các dữ liệu trong CSDL vào form
+            // hiển thị dữ liệu cũ các dữ liệu trong CSDL vào form
             echo "<div class='container'>";
                 echo "<h3 class='title'> Sửa thông tin bệnh </h3>";
                 echo "<form action='handleModify.php' method='POST'>";
@@ -91,7 +89,9 @@
                     echo "</div>";
                     
                     echo "<div class='form-group'>";
+                        // trỏ tới trang handleModify.php ở trên bằng thuộc tính action 
                         echo"<td><input id='btn-sua' class='btn btn-secondary mr-md-2' type='submit' value='Sửa'/></td>";
+                        // bắt sự kiện onclick ở dưới
                         echo"<td><button id='btn-boqua' class='btn btn-secondary mr-md-2' type='button'>Bỏ qua</button></td>";
                     echo "</div>";
                 echo "</form>";
@@ -108,14 +108,12 @@
             };
 
             $(document).ready(function() {
-                // init summernote with options
                 $('#summernote').summernote({
-                    placeholder: 'Nhập chương trình Tour...',
+                    placeholder: 'Nhập mô tả bệnh...',
                     tabsize: 2,
                     height: 200,
                     minHeight: 100,
                     maxHeight: 300,
-                    focus: true,
                     toolbar: [
                         ['style', ['bold', 'italic', 'underline', 'clear']],
                         ['font', ['strikethrough', 'superscript', 'subscript']],
@@ -128,25 +126,6 @@
                         ['insert', ['link', 'picture', 'video']],
                         ['view', ['fullscreen', 'codeview', 'help']],
                     ],
-                    popover: {
-                        image: [
-                        ['image', ['resizeFull', 'resizeHalf', 'resizeQuarter', 'resizeNone']],
-                        ['float', ['floatLeft', 'floatRight', 'floatNone']],
-                        ['remove', ['removeMedia']] ],
-                        link: [['link', ['linkDialogShow', 'unlink']]],
-                        table: [
-                            ['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
-                            ['delete', ['deleteRow', 'deleteCol', 'deleteTable']],
-                        ],
-                        air: [
-                            ['color', ['color']],
-                            ['font', ['bold', 'underline', 'clear']],
-                            ['para', ['ul', 'paragraph']],
-                            ['table', ['table']],
-                            ['insert', ['link', 'picture']]] },
-                    codemirror: {
-                        theme: 'monokai'
-                    }
                 });
             });
         </script>

@@ -109,17 +109,15 @@
     <!-- add JS code -->
     <script src="./index.js"></script>
     <script>
-        // call default constructor function of summernote
-        // $('#summernote').summernote();
+
         $(document).ready(function() {
-            // init summernote with options
-            $('#summernote').summernote({
-                placeholder: 'Nhập chương trình Tour...',
-                tabsize: 2,
-                height: 200,
-                minHeight: 100,
-                maxHeight: 300,
-                focus: true,
+
+            $('#summernote').summernote({ 
+                placeholder: 'Nhập mô tả bệnh...', //phần chữ mờ
+                tabsize: 2, // khoảng cách tab
+                height: 200, // chiều cao mặc định của khung
+                minHeight: 100, // chiều cao tối thiểu
+                maxHeight: 300, // chiều cao tối đa
                 toolbar: [
                     ['style', ['bold', 'italic', 'underline', 'clear']],
                     ['font', ['strikethrough', 'superscript', 'subscript']],
@@ -132,25 +130,6 @@
                     ['insert', ['link', 'picture', 'video']],
                     ['view', ['fullscreen', 'codeview', 'help']],
                 ],
-                popover: {
-                    image: [
-                    ['image', ['resizeFull', 'resizeHalf', 'resizeQuarter', 'resizeNone']],
-                    ['float', ['floatLeft', 'floatRight', 'floatNone']],
-                    ['remove', ['removeMedia']] ],
-                    link: [['link', ['linkDialogShow', 'unlink']]],
-                    table: [
-                        ['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
-                        ['delete', ['deleteRow', 'deleteCol', 'deleteTable']],
-                    ],
-                    air: [
-                        ['color', ['color']],
-                        ['font', ['bold', 'underline', 'clear']],
-                        ['para', ['ul', 'paragraph']],
-                        ['table', ['table']],
-                        ['insert', ['link', 'picture']]] },
-                codemirror: {
-                    theme: 'monokai'
-                }
             });
         });
     </script>

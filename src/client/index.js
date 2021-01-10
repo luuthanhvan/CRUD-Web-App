@@ -35,14 +35,14 @@ function search(content){
         console.log(value);
         var xmlHTTP;
         if(window.XMLHttpRequest){
-            xmlHTTP = new XMLHttpRequest();
+            xmlHTTP = new XMLHttpRequest(); // hỗ trợ cho IE7+, firefox,chrome, opera,safari
         }
         else{
-            xmlHTTP = new ActiveXObject("Microsoft.XMLHTTP");
+            xmlHTTP = new ActiveXObject("Microsoft.XMLHTTP"); // hỗ trợ cho IE 5, 6
         }
         xmlHTTP.onreadystatechange = function(){
             if(xmlHTTP.readyState == 4 && xmlHTTP.status == 200){
-                console.log(xmlHTTP.responseText);
+                //console.log(xmlHTTP.responseText);
                 document.getElementById("showContent").innerHTML = xmlHTTP.responseText;
             }
         }
